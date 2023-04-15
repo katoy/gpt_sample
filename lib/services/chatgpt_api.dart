@@ -11,7 +11,7 @@ class ChatGptApi {
     final request = {
       "model": "text-davinci-003",
       "prompt": text,
-      "max_tokens": 100,
+      "max_tokens": 400,
       "temperature": 0
     };
 

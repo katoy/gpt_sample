@@ -17,17 +17,20 @@ class ChatScreenState extends State<ChatScreen> {
   final _chatGptApi = ChatGptApi();
   final _messages = <Message>[];
 
-  void _handleSubmitted(String text) async {
-    if (text.trim().isEmpty) {
+  void _handleSubmitted(String prompt) async {
+    if (prompt.trim().isEmpty) {
       // 空の文字列が渡された場合は何もしない
       return;
     }
 
     _controller.clear();
-    final response = await _chatGptApi.sendMessage(text);
+    final response = await _chatGptApi.sendMessage(prompt);
+    final message = Message(text: prompt, isUserMessage: true);
+    final responseMessage = Message(text: response, isUserMessage: false);
+
     setState(() {
-      _messages.add(Message(text: text, isUserMessage: true));
-      _messages.add(Message(text: response, isUserMessage: false));
+      _messages.insert(0, responseMessage);
+      _messages.insert(0, message);
     });
   }
 
