@@ -41,12 +41,19 @@ class ChatScreenState extends State<ChatScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Row(
           children: [
-            Flexible(
-              child: TextField(
-                controller: _controller,
-                onSubmitted: _handleSubmitted,
-                decoration: const InputDecoration.collapsed(
-                  hintText: 'Send a message',
+            Expanded(
+              child: Container(
+                margin:
+                    const EdgeInsets.only(left: 16.0, bottom: 16.0, top: 8.0),
+                child: TextField(
+                  controller: _controller,
+                  onSubmitted: _handleSubmitted,
+                  decoration: const InputDecoration(
+                    hintText: 'ご質問は？',
+                  ),
+                  style: const TextStyle(fontSize: 18.0),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null, // 入力フィールドの高さを可変にする
                 ),
               ),
             ),
