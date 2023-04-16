@@ -36,6 +36,8 @@ cp .env-sample .env
 ## スクリーンショット
 
 chrome
+![chome](./screenshots/chrome-fizz.png)
+
 ![chome](./screenshots/chrome.png)
 
 - ios
