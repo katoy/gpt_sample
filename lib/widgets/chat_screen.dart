@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:intl/intl.dart';
+
 import '/widgets/chat_bubble.dart';
 import '/services/chatgpt_api.dart';
 import '/models/message.dart';
@@ -16,6 +18,8 @@ class ChatScreenState extends State<ChatScreen> {
   final _controller = TextEditingController();
   final _chatGptApi = ChatGptApi();
   final _messages = <Message>[];
+  final _scrollController = ScrollController();
+  int _index = 0;
 
   void _handleSubmitted(String prompt) async {
     if (prompt.trim().isEmpty) {
@@ -24,14 +28,26 @@ class ChatScreenState extends State<ChatScreen> {
     }
 
     _controller.clear();
+    final now = DateTime.now();
+    final formatter = DateFormat('HH:mm:ss');
+    final formattedTime = formatter.format(now);
+    ++_index;
+    final message = Message(
+        text: '[$_index] $formattedTime \n $prompt', isUserMessage: true);
     final response = await _chatGptApi.sendMessage(prompt);
-    final message = Message(text: prompt, isUserMessage: true);
     final responseMessage = Message(text: response, isUserMessage: false);
 
     setState(() {
-      _messages.insert(0, responseMessage);
       _messages.insert(0, message);
+      _messages.insert(0, responseMessage);
     });
+
+    // スクロール位置を最下部に設定する
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
   }
 
   Widget _buildTextComposer() {
@@ -70,6 +86,8 @@ class ChatScreenState extends State<ChatScreen> {
   Widget _buildMessages() {
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
+      controller: _scrollController, // set the controller
+      reverse: true, // reverse the order of the list view
       itemCount: _messages.length,
       itemBuilder: (context, i) {
         final message = _messages[i];

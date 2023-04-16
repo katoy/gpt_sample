@@ -29,9 +29,14 @@ flutter 3.6 で ChatGPT API を使って対話できるサンプルアプリを�
 
 ```shell
 cp .env-sample .env
-'''
+```
 
-.env に API-KEY を設定します。 "xxxx" の世に "囲んで記述しえください。
+.env に API-KEY を設定します。 "xxxx" の様に "囲んで記述してください。
 
 ## スクリーンショット
 
+chrome
+![chome](./screenshots/chrome.png)
+
+- ios
+![chome](./screenshots/ios.png)

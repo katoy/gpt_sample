@@ -38,6 +38,10 @@ class ChatBubble extends StatelessWidget {
 
         for (final line in lines) {
           final trimmedLine = line.trim(); // 行の先頭と末尾の空白文字を削除
+          if (trimmedLine.length == 0) {
+            continue;
+          }
+
           final textWidget = Padding(
             padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
             child: Text(
