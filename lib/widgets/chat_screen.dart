@@ -38,16 +38,14 @@ class ChatScreenState extends State<ChatScreen> {
     final responseMessage = Message(text: response, isUserMessage: false);
 
     setState(() {
-      _messages.insert(0, message);
-      _messages.insert(0, responseMessage);
+      _messages.add(message);
+      _messages.add(responseMessage);
     });
 
     // スクロール位置を最下部に設定する
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOut,
-    );
+    await Future.delayed(const Duration(milliseconds: 100));
+    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+        duration: Duration(milliseconds: 1000), curve: Curves.ease);
   }
 
   Widget _buildTextComposer() {
@@ -87,7 +85,6 @@ class ChatScreenState extends State<ChatScreen> {
     return ListView.builder(
       padding: const EdgeInsets.all(8.0),
       controller: _scrollController, // set the controller
-      reverse: true, // reverse the order of the list view
       itemCount: _messages.length,
       itemBuilder: (context, i) {
         final message = _messages[i];

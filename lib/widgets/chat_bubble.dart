@@ -13,7 +13,7 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final maxWidth = MediaQuery.of(context).size.width * 0.7;
-    const maxLines = 3;
+    // const maxLines = 3;
 
     Widget buildText(BuildContext context) {
       final textSpan = TextSpan(
@@ -26,8 +26,8 @@ class ChatBubble extends StatelessWidget {
       final textPainter = TextPainter(
         text: textSpan,
         textDirection: TextDirection.ltr,
-        maxLines: maxLines,
-        ellipsis: '...', // 最大行数を超えた場合に末尾に表示するテキスト
+        // maxLines: maxLines,
+        // ellipsis: '...', // 最大行数を超えた場合に末尾に表示するテキスト
       );
       textPainter.layout(maxWidth: maxWidth); // 最大幅を指定してテキストをレイアウト
 
